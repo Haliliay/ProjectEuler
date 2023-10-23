@@ -200,6 +200,7 @@ long long Problem0009::operator()() const {
     return result;
 }
 
+
 long long Problem0010::operator()(long long n) const
 {
     long long sum = 0;
@@ -212,4 +213,79 @@ long long Problem0010::operator()(long long n) const
 long long Problem0010::operator()() const
 {
     return this->operator()(2e6);
+}
+
+
+long long Problem0011::operator()(long long n) const
+{
+    long long max = 0;
+    auto rowTest = [=](size_t row, size_t col) -> bool { return (col + n) <= 20; };
+    auto rowProduct = [&](size_t row, size_t col) {
+        long long product = 1;
+        assert(rowTest(row, col));
+        for (size_t i = 0; i < n; i++) {
+            product *= grid[row][col + i];
+        };
+        return product;
+    };
+
+    auto colTest = [=](size_t row, size_t col) -> bool { return (row + n) <= 20; };
+    auto colProduct = [&](size_t row, size_t col) {
+        long long product = 1;
+        assert(colTest(row, col));
+        for (size_t i = 0; i < n; i++) {
+            product *= grid[row + i][col];
+        };
+        return product;
+    };
+    
+    auto diagRightTest = [=](size_t row, size_t col) -> bool { return (row + n) <= 20 && (col + n) <= 20; };
+    auto diagRightProduct = [&](size_t row, size_t col) {
+        long long product = 1;
+        assert(diagRightTest(row, col));
+        for (size_t i = 0; i < n; i++) {
+            product *= grid[row + i][col + i];
+        };
+        return product;
+    };
+    
+    auto diagLeftTest = [=](size_t row, size_t col) -> bool { return (row + n) <= 20 && col >= (n - 1); };
+    auto diagLeftProduct = [&](size_t row, size_t col) {
+        long long product = 1;
+        assert(diagLeftTest(row, col));
+        for (size_t i = 0; i < n; i++) {
+            product *= grid[row + i][col - i];
+        };
+        return product;
+    };
+    
+    auto replaceMax = [&max](long long product)
+    {
+        if (max < product)
+            max = product;
+    };
+    
+    for (size_t i = 0; i < 20; i++) {
+        for (size_t j = 0; j < 20; j++) {
+            long long product = 1;
+            if (rowTest(i, j)) {
+                replaceMax(rowProduct(i, j));
+            }
+            if (colTest(i, j)) {
+                replaceMax(colProduct(i, j));
+            }
+            if (diagRightTest(i, j)) {
+                replaceMax(diagRightProduct(i, j));
+            }
+            if (diagLeftTest(i, j)) {
+                replaceMax(diagLeftProduct(i, j));
+            }
+        }
+    }
+    return max;
+}
+
+long long Problem0011::operator()() const
+{
+    return operator()(4);
 }
