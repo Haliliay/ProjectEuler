@@ -131,9 +131,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ProjectEuler\main.cpp" />
+    <ClCompile Include="Problems1-20.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Problems1-20.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
