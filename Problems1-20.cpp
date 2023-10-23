@@ -127,29 +127,7 @@ long long Problem0006::operator()() const {
 
 
 long long Problem0007::operator()(long long n) const {
-    std::vector<long long> primes = { 2, 3 };
-    primes.reserve(sizeof(long long) * n);
-
-    while (primes.size() < n) {
-        long long p_test = primes.back();
-        // While not prime
-        while (
-            [&]() {
-                for (auto& p : primes) {
-                    if (p_test % p == 0)
-                        return true;    // is not prime
-                }
-                return false;   // is prime
-            }()) {
-            p_test += 2;
-        }
-        primes.push_back(p_test);
-        if (primes.size() % 100 == 0) {
-            std::cout << "\rProgress: " << primes.size() << "\t/ " << n;
-            std::cout.flush();
-        }
-    }
-    return primes.back();
+    return hu::genNPrimes(n).back();
 }
 
 long long Problem0007::operator()() const {
@@ -220,4 +198,18 @@ long long Problem0009::operator()() const {
     }
 
     return result;
+}
+
+long long Problem0010::operator()(long long n) const
+{
+    long long sum = 0;
+    for (auto p : hu::genPrimesBelowN(n)) {
+        sum += p;
+    }
+    return sum;
+}
+
+long long Problem0010::operator()() const
+{
+    return this->operator()(2e6);
 }

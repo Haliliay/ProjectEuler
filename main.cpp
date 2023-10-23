@@ -4,5 +4,5 @@
 int main()
 {
     using namespace std;
-    std::cout << "The answer is: " << Problem0009()() << "\n";
+    std::cout << "The answer is: " << Problem0010()() << "\n";
 }
