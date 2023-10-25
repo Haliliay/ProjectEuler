@@ -134,4 +134,50 @@ namespace hu {
         
         return sieveMethod();
     }
+
+    std::vector<long long> divisorsOf(long long n)
+    {
+        using namespace std;
+        vector<long long> divisors{1};
+        if (n == 1)
+            return divisors;
+        else
+            divisors.push_back(n);
+
+        // Sieve method
+        vector<long long> sieve(n - 1);
+        vector<bool> marks(n - 1, true);
+        std::iota(sieve.begin(), sieve.end(), 2);
+
+        long long c_d = 2;
+        long long i = 0;
+        // divisor m of divisor pair (m, k) is always <= sqrt(n)
+        while (sieve[i] * sieve[i] <= n) {
+            if (marks[i])
+            {
+                // Marked as divisor, so check if it is true
+                c_d = sieve[i];
+                if (n % c_d != 0) {
+                    // Mark c_d and multiples of c_d as non divisors
+                    long long j = 1;
+                    while ((j * c_d - 2) < (n - 1)) {
+                        if (marks[(j * c_d - 2)])
+                        {
+                            marks[(j * c_d - 2)] = false;
+                        }
+                        j++;
+                    }
+                }
+                else {
+                    divisors.push_back(c_d);
+                    long long divisorPartner = n / c_d;
+                    if (divisorPartner != c_d)
+                        divisors.push_back(divisorPartner);
+                }
+            }
+            i++;
+        }
+
+        return divisors;
+    }
 }

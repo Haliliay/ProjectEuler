@@ -289,3 +289,31 @@ long long Problem0011::operator()() const
 {
     return operator()(4);
 }
+
+
+long long Problem0012::operator()(long long divisor_count) const
+{
+    long long curTriangleNumber = 1;
+    long long curNumber = 1;
+
+    if (divisor_count == 1)
+        return 1;
+    while (true) {
+        curNumber++;
+        curTriangleNumber += curNumber;
+        auto divisors = hu::divisorsOf(curTriangleNumber);
+        if (divisors.size() >= divisor_count)
+            return curTriangleNumber;
+        else {
+            cout << "\rTriNumber: " << curTriangleNumber << "    Divisors: " << divisors.size();
+            cout.flush();
+        }
+    }
+
+    return curTriangleNumber;
+}
+
+long long Problem0012::operator()() const
+{
+    return operator()(500);
+}
