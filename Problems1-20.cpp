@@ -329,3 +329,34 @@ long long Problem0012::operator()() const
 {
     return operator()(500);
 }
+
+
+long long Problem0013::operator()() const {
+    using namespace std;
+    vector<string> fifty_digit_numbers(100);
+
+    // Read the 50 digit numbers as strings
+    ifstream file;
+    string line;
+    file.open("p0013.txt");
+    if (file.is_open()) {
+        int i = 0;
+        while (getline(file, line)) {
+            fifty_digit_numbers[i] = line;
+            i++;
+        }
+        file.close();
+    }
+
+    unsigned long long sum = 0;
+    for (auto& s : fifty_digit_numbers) {
+        // We only need the first 13 digits for an accurate first 10 digit sum
+        // because the remaining digits can at most carry 99 over and if digits
+        // 11, 12, 13 are below 901, then the first 10 digits are accurate, else
+        // they might be off by 1.
+        unsigned long long num = stoull(s.substr(0, 16));
+        sum += num;
+    }
+    line = to_string(sum);
+    return stoll(line.substr(0,10));
+}

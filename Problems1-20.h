@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <cassert>
+#include <fstream>
 #include "Utils.h"
 
 class Problem0001  {
@@ -227,5 +228,16 @@ public:
     <p>What is the value of the first triangle number to have over five hundred divisors?</p>
     */
     long long operator()(long long divisor_count) const;
+    long long operator()() const;
+};
+
+class Problem0013 {
+public:
+    // Large Sum
+    /*
+    Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+    */
+    std::vector<std::string> fifty_digit_numbers;
+
     long long operator()() const;
 };
