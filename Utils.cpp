@@ -180,4 +180,23 @@ namespace hu {
 
         return divisors;
     }
+
+    std::vector<std::pair<long long, int>> primeFactorsOf(long long n) {
+        std::vector<std::pair<long long, int>> factors;
+        auto primes = genPrimesBelowN(ceill(sqrtl(n)));
+        for (long long i = 0; i < primes.size(); i++) {
+            int count = 0;
+            while ((n % primes[i]) == 0) {
+                count++;
+                n = n / primes[i];
+            }
+            if (count > 0) {
+                factors.push_back(std::make_pair(primes[i], count));
+            }
+        }
+        if (n > 1) {
+            factors.push_back(std::make_pair(n, 1));
+        }
+        return factors;
+    }
 }

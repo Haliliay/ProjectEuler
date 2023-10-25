@@ -298,14 +298,26 @@ long long Problem0012::operator()(long long divisor_count) const
 
     if (divisor_count == 1)
         return 1;
+    long long last_divisor = 0;
     while (true) {
         curNumber++;
         curTriangleNumber += curNumber;
-        auto divisors = hu::divisorsOf(curTriangleNumber);
-        if (divisors.size() >= divisor_count)
+        auto factors = hu::primeFactorsOf(curTriangleNumber);
+        long long divisors = [&]() {
+            long long result = 1;
+            for (auto& pair : factors) {
+                result *= pair.second + 1;
+            }
+            return result;
+        }();
+
+        if (divisors >= divisor_count)
+        {
             return curTriangleNumber;
-        else {
-            cout << "\rTriNumber: " << curTriangleNumber << "    Divisors: " << divisors.size();
+        }
+        else if (divisors >= last_divisor) {
+            cout << "\rTriNumber: " << curTriangleNumber << "    Divisors: " << divisors;
+            last_divisor = divisors;
             cout.flush();
         }
     }
