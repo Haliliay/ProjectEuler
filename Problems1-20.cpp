@@ -360,3 +360,55 @@ long long Problem0013::operator()() const {
     line = to_string(sum);
     return stoll(line.substr(0,10));
 }
+
+
+long long Problem0014::operator()(long n) const {
+    using namespace std;
+    vector<long> sequence_lengths(n); // for memoization
+    sequence_lengths[1] = 1;
+
+    for (long i = 1; i < sequence_lengths.size(); i++) {
+        long long c_num = i; // 1 to n-1
+        vector<long long> sequence{c_num};
+        while (c_num >= sequence_lengths.size() || sequence_lengths[c_num] == 0) {
+            if (c_num == 1)
+                break;
+            else {
+                if (c_num % 2 == 0){
+                    c_num /= 2;
+                }
+                else {
+                    c_num = 3 * c_num + 1;
+                }
+                sequence.push_back(c_num);
+            }
+        }
+        int seq_end = sequence.size() - 1;
+        for (int j = 0; j < seq_end; j++) {
+            // memoize all calculated subsequences
+            long long c_num = sequence[j];
+            if(c_num < sequence_lengths.size() && sequence[seq_end] < sequence_lengths.size())
+                sequence_lengths[c_num] = sequence.size() - j - 1 + sequence_lengths[sequence[seq_end]];
+        }
+        if (i % 1000 == 0)
+        {
+            cout << "\ri: " << i << " / " << sequence_lengths.size();
+            cout.flush();
+        }
+    }
+
+    long max_index = 1;
+    long max_length = 1;
+    for (long i = 0; i < sequence_lengths.size(); i++) {
+        if(sequence_lengths[i] > max_length) {
+            max_length = sequence_lengths[i];
+            max_index = i;
+        }
+    }
+
+    return max_index;
+}
+
+long long Problem0014::operator()() const {
+    return operator()(1e6);
+}
