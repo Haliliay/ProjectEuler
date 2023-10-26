@@ -412,3 +412,33 @@ long long Problem0014::operator()(long n) const {
 long long Problem0014::operator()() const {
     return operator()(1e6);
 }
+
+
+long long Problem0015::operator()(long x, long y) const {
+    using namespace std;
+    static vector<vector<long long>> pathOptions = { {1} }; 
+    while (pathOptions.size() <= y) {
+        pathOptions.push_back(vector<long long>{-1});
+    }
+    for (int i = 0; i <= y; i++) {
+        while (pathOptions[i].size() <= x) {
+            pathOptions[i].push_back(-1);
+        }
+    }
+
+    if (x == 0 || y == 0) {
+        pathOptions[y][x] = 1;
+    }
+    else if (pathOptions[y][x] >= 0) {
+        return pathOptions[y][x];
+    }
+    else {
+        pathOptions[y][x] = operator()(x - 1, y) + operator()(x, y - 1);
+    }
+
+    return pathOptions[y][x];
+}
+
+long long Problem0015::operator()() const {
+    return operator()(20, 20);
+}
