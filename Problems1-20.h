@@ -6,6 +6,7 @@
 #include <cassert>
 #include <fstream>
 #include "Utils.h"
+#include "ap/ap.hpp"
 
 class Problem0001  {
 public:
@@ -272,5 +273,18 @@ public:
     */
 
     long long operator()(long x, long y) const;
+    long long operator()() const;
+};
+
+
+class Problem0016 {
+public:
+    // Power Digit Sum
+    /*
+    <p>$2^{15} = 32768$ and the sum of its digits is $3 + 2 + 7 + 6 + 8 = 26$.</p>
+    <p>What is the sum of the digits of the number $2^{1000}$?</p>
+    */
+
+    long long operator()(long n) const;
     long long operator()() const;
 };

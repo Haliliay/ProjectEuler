@@ -416,7 +416,10 @@ long long Problem0014::operator()() const {
 
 long long Problem0015::operator()(long x, long y) const {
     using namespace std;
+    // static grid for memoization
     static vector<vector<long long>> pathOptions = { {1} }; 
+
+    // resize the grid if it is not big enough
     while (pathOptions.size() <= y) {
         pathOptions.push_back(vector<long long>{-1});
     }
@@ -426,19 +429,38 @@ long long Problem0015::operator()(long x, long y) const {
         }
     }
 
+    
     if (x == 0 || y == 0) {
-        pathOptions[y][x] = 1;
+        // base case
+        pathOptions[y][x] = 1; 
     }
     else if (pathOptions[y][x] >= 0) {
+        // memoized case
         return pathOptions[y][x];
     }
     else {
+        // recursive case
         pathOptions[y][x] = operator()(x - 1, y) + operator()(x, y - 1);
     }
-
     return pathOptions[y][x];
 }
 
 long long Problem0015::operator()() const {
     return operator()(20, 20);
+}
+
+
+long long Problem0016::operator()(long n) const {
+    ap_uint<10000> pow2by1000 = 1;
+    pow2by1000 <<= n;
+    string s = (string)pow2by1000;
+    long long sum = 0;
+    for (int i = 0; i < s.size(); i++) {
+        sum += s[i] - '0';
+    }
+    return sum;
+}
+
+long long Problem0016::operator()() const {
+    return operator()(1000);
 }
