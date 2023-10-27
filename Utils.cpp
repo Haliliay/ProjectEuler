@@ -239,4 +239,12 @@ namespace hu {
         }
         return array;
     }
+
+    bool isLeapYear(long long year)
+    {
+        bool isBy400 = (year % 400) == 0;
+        bool isBy100 = (year % 100) == 0;
+        bool isBy4 = (year % 4) == 0;
+        return isBy4 && (isBy400 || !isBy100);
+    }
 }

@@ -28,4 +28,6 @@ namespace hu {
     std::vector<std::string> split(const std::string& s, char delim);
 
     std::vector<std::vector<int>> readIntsInto2dArray(std::string filename);
+
+    bool isLeapYear(long long year);
 }

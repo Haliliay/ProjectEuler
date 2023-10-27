@@ -551,3 +551,9 @@ long long Problem0018::operator()(std::string filename) {
 
     return triangle[0][0];
 }
+
+
+long long Problem0019::operator()()
+{
+    return 0;
+}
