@@ -199,4 +199,44 @@ namespace hu {
         }
         return factors;
     }
+
+    template <typename Out>
+    void split(const std::string& s, char delim, Out result) {
+        std::istringstream iss(s);
+        std::string item;
+        while (std::getline(iss, item, delim)) {
+            *result++ = item;
+        }
+    }
+
+    std::vector<std::string> split(const std::string& s, char delim) {
+        std::vector<std::string> elems;
+        split(s, delim, std::back_inserter(elems));
+        return elems;
+    }
+
+    std::vector<std::vector<int>> readIntsInto2dArray(std::string filename)
+    {
+        using namespace std;
+        vector<vector<int>> array{ {} };
+        // Read the 50 digit numbers as strings
+        ifstream file;
+        string line;
+        file.open(filename);
+        if (file.is_open()) {
+            int i = 0;
+            while (getline(file, line)) {
+                if (i > 0) {
+                    array.push_back(vector<int>());
+                }
+                vector<string> numbers = split(line, ' ');
+                for (auto& s : numbers) {
+                    array[i].push_back(stoi(s));
+                }
+                i++;
+            }
+            file.close();
+        }
+        return array;
+    }
 }
