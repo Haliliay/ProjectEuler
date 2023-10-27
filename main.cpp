@@ -6,6 +6,6 @@
 int main()
 {
     using namespace std;
-    long long answer = Problem0067()("data/p0067.txt");
+    long long answer = Problem0019()();
     std::cout << "\nThe answer is: " << answer << "\n";
 }
