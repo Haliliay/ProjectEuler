@@ -1,19 +1,19 @@
 #include "Utils.h"
 
 namespace hu {
-    int GetNumOfDigits(int number) {
+    long long GetNumOfDigits(long long number) {
         std::string num_string = std::to_string(number);
         return num_string.size();
     }
 
-    int GetNthDigit(int number, int n) {
-        return (int)((number / pow(10, n - 1))) % 10;
+    long long GetNthDigit(long long number, long long n) {
+        return (long long)((number / pow(10, n - 1))) % 10;
     }
 
-    bool PalindromeCheck(int number) {
+    bool PalindromeCheck(long long number) {
         /* My cute palindrome check
-        int digits = GetNumOfDigits(number);
-        for (int i = 1; i <= digits / 2; i++) {
+        long long digits = GetNumOfDigits(number);
+        for (long long i = 1; i <= digits / 2; i++) {
             if (GetNthDigit(number, i) != GetNthDigit(number, digits + 1 - i)) {
                 return false;
             }
@@ -181,11 +181,11 @@ namespace hu {
         return divisors;
     }
 
-    std::vector<std::pair<long long, int>> primeFactorsOf(long long n) {
-        std::vector<std::pair<long long, int>> factors;
+    std::vector<std::pair<long long, long long>> primeFactorsOf(long long n) {
+        std::vector<std::pair<long long, long long>> factors;
         auto primes = genPrimesBelowN(ceill(sqrtl(n)));
         for (long long i = 0; i < primes.size(); i++) {
-            int count = 0;
+            long long count = 0;
             while ((n % primes[i]) == 0) {
                 count++;
                 n = n / primes[i];

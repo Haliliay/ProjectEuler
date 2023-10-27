@@ -464,3 +464,76 @@ long long Problem0016::operator()(long n) const {
 long long Problem0016::operator()() const {
     return operator()(1000);
 }
+
+
+long long Problem0017::lettersInNumber(long long n) {
+    using namespace std;
+    static map<long long, long long> lettersInNumber;
+    long long origN = n;
+
+    auto it = lettersInNumber.find(n);
+    if (it != lettersInNumber.end()) {
+        return it->second;
+    }
+    else {
+        long long letterCount = 0;
+        int iterSpecialName = 0;
+        while (n > 0) {
+            // Look at lowest three digits at a time
+            int tempN = n % 1000;
+            if (tempN > 0) {
+                // Add special name suffix like "thousand".
+                // Happens only after first loop.
+                if (iterSpecialName > 0 && iterSpecialName < specialNames.size()) {
+                    // add conjunction "and" only if the lower part of the number is non zero
+                    if (letterCount > 0) {
+                        letterCount += 3;
+                    }
+                    letterCount += specialNames[iterSpecialName].size();
+                }
+
+                // add third digit
+                if (tempN >= 100) {
+                    letterCount += digits[hu::GetNthDigit(tempN, 3)].size() + specialNames[0].size();
+                    tempN %= 100;
+
+                    // add conjunction "and" only if the lower part of the number is non zero
+                    if (tempN > 0) {
+                        letterCount += 3;
+                    }
+                }
+
+                // add last two digits
+                if (tempN >= 20) {
+                    letterCount += tens[hu::GetNthDigit(tempN, 2)].size();
+                    tempN %= 10;
+                    if (tempN > 0)
+                        letterCount += digits[tempN].size();
+                }
+                else if (tempN >= 10) {
+                    letterCount += tenToNineteen[tempN % 10].size();
+                }
+                else if (tempN > 0) {
+                    letterCount += digits[tempN].size();
+                }
+            }
+            // Handled up to 3 bundled digits, now loop if there are more
+            n /= 1000;
+            iterSpecialName++;
+        }
+        lettersInNumber.emplace(origN, letterCount);
+        return letterCount;
+    }
+}
+
+long long Problem0017::operator()(long n) {
+    long long lettersOneToN = 0;
+    for (int i = 1; i <= n; i++) {
+        lettersOneToN += lettersInNumber(i);
+    }
+    return lettersOneToN;
+}
+
+long long Problem0017::operator()() {
+    return operator()(1000);
+}

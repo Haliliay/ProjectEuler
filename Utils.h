@@ -5,11 +5,11 @@
 #include <numeric>
 
 namespace hu {
-    int GetNumOfDigits(int number);
+    long long GetNumOfDigits(long long number);
 
-    int GetNthDigit(int number, int n);
+    long long GetNthDigit(long long number, long long n);
 
-    bool PalindromeCheck(int number);
+    bool PalindromeCheck(long long number);
 
     std::vector<long long> genNPrimes(long long n);
 
@@ -17,5 +17,5 @@ namespace hu {
 
     std::vector<long long> divisorsOf(long long n);
 
-    std::vector<std::pair<long long, int>> primeFactorsOf(long long n);
+    std::vector<std::pair<long long, long long>> primeFactorsOf(long long n);
 }
