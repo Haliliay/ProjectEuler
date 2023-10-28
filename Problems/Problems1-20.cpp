@@ -553,7 +553,57 @@ long long Problem0018::operator()(std::string filename) {
 }
 
 
+int Problem0019::addMonth(int month, int year)
+{
+    assert(month >= 1 && month <= 12);
+    if (month == 2) {
+        return hu::isLeapYear(year) ? 29 : 28;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        return 30;
+    }
+    else {
+        return 31;
+    }
+    return 0;
+}
+
+long long Problem0019::operator()(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear)
+{
+    int sumSundays = 0;
+    int curDay = 0;
+    for (int i = 1900; i < startYear; i++) {
+        if (hu::isLeapYear(i)) {
+            curDay += 366;
+        }
+        else {
+            curDay += 365;
+        }
+    }
+    for (int i = 1; i < startMonth; i++) {
+        curDay += addMonth(i, startYear);
+    }
+    curDay = curDay % 7;
+
+    for (int i = startYear; i <= endYear; i++) {
+        int j = 1, jEnd = 12;
+        if (i == startYear)
+            j = startMonth;
+        if (i == endYear)
+            jEnd = endMonth;
+
+        for (; j <= jEnd; j++) {
+            curDay %= 7;
+            if (curDay == 6)
+                sumSundays++;
+            curDay += addMonth(j, i);
+        }
+    }
+
+    return sumSundays;
+}
+
 long long Problem0019::operator()()
 {
-    return 0;
+    return operator()(1, 2, 1901, 31, 12, 2000);
 }

@@ -361,5 +361,18 @@ public:
     </ul><p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
     */
 
+    int addMonth(int month, int year);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="startDay">1-31</param>
+    /// <param name="startMonth">1-12</param>
+    /// <param name="startYear">1900-any</param>
+    /// <param name="endDay"></param>
+    /// <param name="endMonth"></param>
+    /// <param name="endYear"></param>
+    /// <returns></returns>
+    long long operator()(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear);
     long long operator()();
 };
