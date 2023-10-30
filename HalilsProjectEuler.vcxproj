@@ -138,11 +138,13 @@
   <ItemGroup>
     <ClCompile Include="..\ProjectEuler\main.cpp" />
     <ClCompile Include="Problems\Problems1-20.cpp" />
+    <ClCompile Include="Problems\Problems21-31.cpp" />
     <ClCompile Include="Problems\Problems61-70.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Problems\Problems1-20.h" />
+    <ClInclude Include="Problems\Problems21-31.h" />
     <ClInclude Include="Problems\Problems61-70.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

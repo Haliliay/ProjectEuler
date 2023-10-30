@@ -141,8 +141,6 @@ namespace hu {
         vector<long long> divisors{1};
         if (n == 1)
             return divisors;
-        else
-            divisors.push_back(n);
 
         // Sieve method
         vector<long long> sieve(n - 1);
@@ -178,6 +176,7 @@ namespace hu {
             i++;
         }
 
+        divisors.push_back(n);
         return divisors;
     }
 
@@ -252,5 +251,16 @@ namespace hu {
     {
         assert(c >= '0' && c <= '9');
         return c - '0';
+    }
+
+    void printProgress(long long a, long long n)
+    {
+        static long double percentage = 0;
+        long double newPercentage = ((long double)a * 100.) / n;
+        if ((newPercentage - percentage) >= 1) {
+            percentage = newPercentage;
+            std::cout << "\rProgress: " << a << "/" << n << "  (" << percentage << "%)\t\t";
+            std::cout.flush();
+        }
     }
 }

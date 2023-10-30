@@ -33,4 +33,11 @@ namespace hu {
     bool isLeapYear(long long year);
 
     int ctoi(const char c);
+
+    /// <summary>
+    /// Print the percentage of a of n, if it has a difference of at least 1% compared to the last printed percentage.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="n"></param>
+    void printProgress(long long a, long long n);
 }

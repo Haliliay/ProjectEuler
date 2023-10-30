@@ -32,6 +32,9 @@
     <ClCompile Include="Problems\Problems61-70.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Problems\Problems21-31.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -41,6 +44,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Problems\Problems61-70.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Problems\Problems21-31.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
