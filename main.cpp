@@ -6,6 +6,6 @@
 int main()
 {
     using namespace std;
-    long long answer = Problem0019()();
+    long long answer = Problem0020()();
     std::cout << "\nThe answer is: " << answer << "\n";
 }

@@ -376,3 +376,14 @@ public:
     long long operator()(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear);
     long long operator()();
 };
+
+class Problem0020 {
+public:
+    // Factorial Digit Sum
+    /*
+    Sum the digits of 100!
+    */
+
+    long long operator()(int factorial);
+    long long operator()();
+};

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iterator>
+#include <cassert>
 
 namespace hu {
     long long GetNumOfDigits(long long number);
@@ -30,4 +31,6 @@ namespace hu {
     std::vector<std::vector<int>> readIntsInto2dArray(std::string filename);
 
     bool isLeapYear(long long year);
+
+    int ctoi(const char c);
 }

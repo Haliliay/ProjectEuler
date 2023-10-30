@@ -247,4 +247,10 @@ namespace hu {
         bool isBy4 = (year % 4) == 0;
         return isBy4 && (isBy400 || !isBy100);
     }
+
+    int ctoi(const char c)
+    {
+        assert(c >= '0' && c <= '9');
+        return c - '0';
+    }
 }

@@ -607,3 +607,25 @@ long long Problem0019::operator()()
 {
     return operator()(1, 2, 1901, 31, 12, 2000);
 }
+
+
+long long Problem0020::operator()(int factorial)
+{
+    ap_uint<2000> fac = 1;
+    for (int i = 2; i <= factorial; i++) {
+        auto oldFac = fac;
+        fac *= i;
+        assert(fac > oldFac);
+    }
+    std::string facString = std::string(fac);
+    long long facSum = 0;
+    for (int i = 0; i < facString.size(); i++) {
+        facSum += hu::ctoi(facString[i]);
+    }
+    return facSum;
+}
+
+long long Problem0020::operator()()
+{
+    return operator()(100);
+}
