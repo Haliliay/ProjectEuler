@@ -162,3 +162,13 @@ std::vector<int> Problem0023::abundantNumsBelowN(int n)
 	}
 	return abundants;
 }
+
+
+std::string Problem0024::operator()() {
+	using namespace std;
+	vector<int> digits(10);
+	iota(digits.begin(), digits.end(), 0);
+	auto combination = hu::permSelect(digits, (int)1e6);
+	
+	return hu::listToString(combination);
+}

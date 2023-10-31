@@ -139,16 +139,52 @@ namespace hu {
     }
 
     template<typename T>
-    std::set<std::vector<T>> comb(const std::vector<T>& list, int K)
+    std::string listToString(const std::vector<T>& list)
+    {
+        using namespace std;
+        string result = "";
+        for (auto& i : list) {
+            result += to_string(i);
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
+    /// Assumes all elements of the list are digits and the initial configuration is the starting order.
+    /// </summary>
+    /// <param name="list">digits to be used in lexicographic order</param>
+    /// <param name="selectedIndex"></param>
+    /// <returns></returns>
+    std::vector<int> permSelect(const std::vector<int>& list, int selectedIndex);
+
+    /// <summary>
+    /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
+    /// Assumes all elements of the list are letters and the initial configuration is the starting order.
+    /// </summary>
+    /// <param name="list">letters to be used in lexicographic order</param>
+    /// <param name="selectedIndex"></param>
+    /// <returns></returns>
+    std::string permSelect(const std::string& list, int selectedIndex);
+
+    /// <summary>
+    /// Returns all combinations of the elements of list.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="K">Amount of selected elements in the combination</param>
+    /// <returns></returns>
+    template<typename T>
+    std::set<std::vector<T>> comb(const std::vector<T>& list, int K = INT16_MAX)
     {
         using namespace std;
         int N = list.size();
-        assert(N >= K);
+        K = clamp(K, 1, N);
         std::set<std::vector<T>> result;
         string bitmask(K, 1); // K leading 1's
         bitmask.resize(N, 0); // N-K trailing 0's
 
-        // print integers and permute bitmask
+        // Add combination and permute bitmask
         do {
             vector<T> combination = {};
             for (int i = 0; i < N; ++i) // [0..N-1] integers

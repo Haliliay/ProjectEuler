@@ -260,4 +260,40 @@ namespace hu {
             std::cout.flush();
         }
     }
+
+    std::vector<int> permSelect(const std::vector<int>& list, int selectedIndex)
+    {
+        using namespace std;
+        int N = list.size();
+        string permutation = listToString(list);
+        int counter = 0;
+        vector<int> result = {};
+
+        // Evaluate permutation
+        do {
+            counter++;
+            hu::printProgress(counter, selectedIndex);
+        } while (counter != selectedIndex && std::next_permutation(permutation.begin(), permutation.end()));
+
+        for (int i = 0; i < N; ++i)
+        {
+            result.push_back(ctoi(permutation[i]));
+        }
+        return result;
+    }
+
+    std::string permSelect(const std::string& list, int selectedIndex)
+    {
+        using namespace std;
+        string permutation = list;
+        int counter = 0;
+
+        // Evaluate permutation
+        do {
+            counter++;
+            hu::printProgress(counter, selectedIndex);
+        } while (counter != selectedIndex && std::next_permutation(permutation.begin(), permutation.end()));
+
+        return permutation;
+    }
 }
