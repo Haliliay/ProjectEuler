@@ -84,3 +84,4 @@ int Problem0022::alphabeticalScore(const std::string& word)
 		sum += alphabeticalScore(c);
 	return sum;
 }
+

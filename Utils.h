@@ -21,14 +21,14 @@ namespace hu {
     std::vector<long long> genPrimesBelowN(long long n);
 
     /// <summary>
-    /// Returns all divisors of n, including 1 and n.
+    /// Returns all divisors of positive integer n, including 1 and n.
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
     std::vector<long long> divisorsOf(long long n);
 
     /// <summary>
-    /// Returns all proper divisors of n, including 1.
+    /// Returns all proper divisors of positive integer n, including 1.
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>

@@ -57,82 +57,63 @@ namespace hu {
     std::vector<long long> genPrimesBelowN(long long n)
     {
         using namespace std;
-        auto oldMethod = [=]() {
-            if (n < 3)
-                return vector<long long>{};
-            if (n == 3)
-                return vector<long long>{2};
-            std::vector<long long> primes = { 2, 3 };
 
-            long long p_test = primes.back();
-            while (p_test < n) {
-                p_test = primes.back();
-                // While not prime
-                while (
-                    [&]() {
-                        for (auto& p : primes) {
-                            if (p_test % p == 0)
-                                return true;    // is not prime
-                        }
-                        return false;   // is prime
-                    }()) {
-                    p_test += 2;
-                    if (p_test >= n)
-                        break;
-                }
-                if (p_test >= n)
-                    break;
-                primes.push_back(p_test);
+        // Memoize state
+        static vector<long long> sieve = {};
+        static vector<bool> marks = {};
+        static vector<long long> primes = {};
 
-                //if (primes.size() % 100 == 0)
-                //{
-                //    std::cout << "\rLast Prime: " << primes.back() << "/" << n;
-                //    std::cout.flush();
-                //}
+        // Leave out 1 and n, so the sieve size is n-2
+        int sieveSize = n - 2;
 
-            }
-            return primes;
-        };
-        
-        auto sieveMethod = [=]() {
-            // Leave out 1 and n, so -2
-            vector<long long> sieve(n-2);
-            vector<bool> marks(n-2, true);
-            long long primesSize = n - 2;
-            std::iota(sieve.begin(), sieve.end(), 2);
+        if (sieve.size() < sieveSize) {
+            // Extend sieves
+            int offset = sieve.size();
+            sieve.resize(sieveSize, 0);
+            std::iota(sieve.begin() + offset, sieve.end(), 2 + offset);
+            marks.resize(sieveSize, true);
 
+            // Search for non-memoized primes below n
             long long p = 2;
-            long long i = 0;
-            while (i < (n-2)) {
+            long long i = 0;    // Always start by 0 to sieve already found primes out of the added space
+            while (i < sieveSize) {
                 if (marks[i])
                 {
                     p = sieve[i];
+                    long long multiplier = 2;
+                    // Skip already sieved multiples
+                    if (offset >= p)
+                        multiplier += offset / p;
+
                     // Mark multiples of p as non prime
-                    long long j = 2;
-                    while ((j * p - 2) < (n-2)) {
-                        if(marks[(j * p - 2)])
+                    while ((multiplier * p - 2) < sieveSize) {
+                        if (marks[(multiplier * p - 2)])
                         {
-                            marks[(j * p - 2)] = false;
-                            primesSize--;
+                            marks[(multiplier * p - 2)] = false;
                         }
-                        j++;
+                        multiplier++;
                     }
                 }
                 i++;
             }
+        }
 
-            vector<long long> primes(primesSize);
-            for (size_t i = 0, j = 0; i < primesSize; i++) {
-                while (!marks[j] && j < n-2)
-                    j++;
-                primes[i] = sieve[j];
+        // Return primes
+        vector<long long> subsetPrimes = {};
+        for (size_t j = 0; j < sieveSize; j++) {
+            // Skip non-primes
+            while (j < sieveSize && !marks[j])
                 j++;
-            }
 
-            return primes;
-        };
-        
-        return sieveMethod();
+            if (j == sieveSize)
+                return subsetPrimes;
+
+            long long prime = sieve[j];
+            if (prime >= n)
+                return subsetPrimes;
+
+            subsetPrimes.push_back(prime);
+        }
     }
 
     std::vector<long long> divisorsOf(long long n)
@@ -146,7 +127,9 @@ namespace hu {
     {
         using namespace std;
         vector<long long> divisors{ 1 };
-        if (n == 1)
+        if (n <= 0)
+            return vector<long long>();
+        else if (n == 1)
             return divisors;
 
         // Sieve method
