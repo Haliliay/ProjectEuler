@@ -43,47 +43,17 @@ namespace hu {
     void printProgress(long long a, long long n);
 
     /// <summary>
-    /// Sorts a list with elements that are comparable by <=.
+    /// Sorts a list with elements that are comparable, e.g. a smaller b.
+    /// Given an index range of the list.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="list"></param>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
-    template<typename T>
-    void quickSort(std::vector<T>& list, long long start, long long end, std::function<int(const T&, const T&)> compar)
-    {
-        static int stackCount = 0;
-        stackCount++;
-        static auto quickSortPartition = [&](std::vector<T>& list, long long start, long long end) {
-            T pivot = list[start];
-            long long offset = 0;
-            for (long long i = start + 1; i <= end; i++) {
-                if (compar(list[i], pivot) <= 0)
-                    offset++;
-            }
-            // Put pivot in its correct place
-            list[start] = list[start + offset];
-            list[start + offset] = pivot;
-            return offset;
-        };
-
-        if (start >= end)
-            return;
-
-        // Partition list into two (hopefully equal) halves
-        long long pOffset = quickSortPartition(list, start, end);
-        if((pOffset - 1) < pOffset)
-            quickSort(list, start, pOffset - 1, compar);
-        if((pOffset + 1) > pOffset)
-            quickSort(list, pOffset + 1, end, compar);
-        stackCount--;
-    }
-
+    /// <typeparam name="T">Element type.</typeparam>
+    /// <param name="list">List of elements.</param>
+    /// <param name="start">Starting index of the list (included, usually 0).</param>
+    /// <param name="end">Ending index of the list (included).</param>
+    /// <param name="compar">Compare function returning a negative, 0 or positive value.</param>
     template<typename T>
     void quickSort(std::vector<T>& list, int start, int end, std::function<int(const T&, const T&)> compar)
     {
-        static int stackCount = 0;
-        stackCount++;
         static auto quickSortPartition = [&](std::vector<T>& list, int start, int end) {
             T pivot = list[start];
             int offset = 0;
@@ -105,7 +75,6 @@ namespace hu {
                 if (i < pi && j > pi)
                     std::swap(list[i++], list[j--]);
             }
-
             return pi;
         };
 
@@ -118,6 +87,17 @@ namespace hu {
             quickSort(list, start, pi - 1, compar);
         if((pi + 1) > pi)
             quickSort(list, pi + 1, end, compar);
-        stackCount--;
+    }
+
+    /// <summary>
+    /// Sorts a list with elements that are comparable, e.g. a smaller b.
+    /// </summary>
+    /// <typeparam name="T">Element type.</typeparam>
+    /// <param name="list">List of elements.</param>
+    /// <param name="compar">Compare function returning a negative, 0 or positive value.</param>
+    template<typename T>
+    void quickSort(std::vector<T>& list, std::function<int(const T&, const T&)> compar)
+    {
+        quickSort(list, 0, list.size() - 1, compar);
     }
 }

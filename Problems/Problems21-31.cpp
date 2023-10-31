@@ -56,7 +56,7 @@ long long Problem0022::operator()(std::string filename)
 
 	// Sort the names
 	auto compar = [](string a, string b) -> int { return a.compare(b); };
-	hu::quickSort<string>(names, 0, (names.size() - 1), compar);
+	hu::quickSort<string>(names, compar);
 
 	// Calculate name score and sum them up.
 	long long scoreSum = 0;
