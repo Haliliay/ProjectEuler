@@ -8,6 +8,9 @@
 #include <iterator>
 #include <cassert>
 #include <functional>
+#include <algorithm>
+#include <tuple>
+#include <set>
 
 namespace hu {
     long long GetNumOfDigits(long long number);
@@ -129,4 +132,6 @@ namespace hu {
     {
         quickSort(list, 0, list.size() - 1, compar);
     }
+
+    std::set<std::vector<long long>> comb(const std::vector<long long>& list, int K);
 }

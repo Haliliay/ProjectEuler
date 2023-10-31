@@ -66,7 +66,7 @@ namespace hu {
         // Leave out 1 and n, so the sieve size is n-2
         int sieveSize = n - 2;
 
-        if (sieve.size() < sieveSize) {
+        if (sieve.size() < sieveSize && sieveSize > 0) {
             // Extend sieves
             int offset = sieve.size();
             sieve.resize(sieveSize, 0);
@@ -100,20 +100,21 @@ namespace hu {
 
         // Return primes
         vector<long long> subsetPrimes = {};
-        for (size_t j = 0; j < sieveSize; j++) {
+        for (int j = 0; j < sieveSize; j++) {
             // Skip non-primes
             while (j < sieveSize && !marks[j])
                 j++;
 
             if (j == sieveSize)
-                return subsetPrimes;
+                break;
 
             long long prime = sieve[j];
             if (prime >= n)
-                return subsetPrimes;
+                break;
 
             subsetPrimes.push_back(prime);
         }
+        return subsetPrimes;
     }
 
     std::vector<long long> divisorsOf(long long n)
@@ -126,46 +127,27 @@ namespace hu {
     std::vector<long long> divisorsProperOf(long long n)
     {
         using namespace std;
-        vector<long long> divisors{ 1 };
-        if (n <= 0)
-            return vector<long long>();
-        else if (n == 1)
-            return divisors;
-
-        // Sieve method
-        vector<long long> sieve(n - 1);
-        vector<bool> marks(n - 1, true);
-        std::iota(sieve.begin(), sieve.end(), 2);
-
-        long long c_d = 2;
-        long long i = 0;
-        // divisor m of divisor pair (m, k) is always <= sqrt(n)
-        while (sieve[i] * sieve[i] <= n) {
-            if (marks[i])
-            {
-                // Marked as divisor, so check if it is true
-                c_d = sieve[i];
-                if (n % c_d != 0) {
-                    // Mark c_d and multiples of c_d as non divisors
-                    long long j = 1;
-                    while ((j * c_d - 2) < (n - 1)) {
-                        if (marks[(j * c_d - 2)])
-                        {
-                            marks[(j * c_d - 2)] = false;
-                        }
-                        j++;
-                    }
-                }
-                else {
-                    divisors.push_back(c_d);
-                    long long divisorPartner = n / c_d;
-                    if (divisorPartner != c_d)
-                        divisors.push_back(divisorPartner);
-                }
+        vector<long long> divisors = {1};
+        vector<long long> primeFactorList = {};
+        auto primeFactors = primeFactorsOf(n);
+        for (auto& pF : primeFactors) {
+            for (long long i = 0; i < pF.second; i++) {
+                primeFactorList.push_back(pF.first);
             }
-            i++;
         }
-
+        for (int i = 1; i <= primeFactorList.size(); i++) {
+            auto combinations = comb(primeFactorList, i);
+            for (auto& c : combinations) {
+                long long divisor = 1;
+                for (int j = 0; j < i; j++) {
+                    divisor *= c[j];
+                }
+                divisors.push_back(divisor);
+            }
+        }
+        
+        if(divisors.size() > 0)
+            divisors.resize(divisors.size() - 1);
         return divisors;
     }
 
@@ -252,5 +234,26 @@ namespace hu {
             std::cout << "\rProgress: " << a << "/" << n << "  (" << percentage << "%)\t\t";
             std::cout.flush();
         }
+    }
+
+    std::set<std::vector<long long>> comb(const std::vector<long long>& list, int K)
+    {
+        using namespace std;
+        int N = list.size();
+        assert(N >= K);
+        std::set<std::vector<long long>> result;
+        string bitmask(K, 1); // K leading 1's
+        bitmask.resize(N, 0); // N-K trailing 0's
+
+        // print integers and permute bitmask
+        do {
+            vector<long long> combination = {};
+            for (int i = 0; i < N; ++i) // [0..N-1] integers
+            {
+                if (bitmask[i]) combination.push_back(list[i]);
+            }
+            result.emplace(combination);
+        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
+        return result;
     }
 }
