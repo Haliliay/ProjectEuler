@@ -85,3 +85,75 @@ int Problem0022::alphabeticalScore(const std::string& word)
 	return sum;
 }
 
+
+long long Problem0023::operator()() {
+	using namespace std;
+	int abundantUpperLimit = 28124;
+	// Find all abundant numbers below abundantUpperLimit - 12
+	string abundantsPath = "data/p0023_abundants.txt";
+	auto abundants = hu::readIntsFromFile(abundantsPath, ' ');
+	if (abundants.size() == 0) {
+		// Calculate and save to file for later
+		abundants = abundantNumsBelowN(abundantUpperLimit - 12);
+		hu::writeIntsToFile(abundants, abundantsPath, ' ');
+	}
+	cout << endl;
+
+	// Mark all non-abundant pair-sums below abundantUpperLimit
+	vector<int> nonAbundantPairSums = {};
+	for (int i = abundantUpperLimit; i > 0; i--) {
+		// Check if i is sum of 2 abundant numbers
+		int j = 0;
+		bool isAbundantPair = false;
+		// Don't consider impossible pairs
+		while (j < abundants.size() && (abundants[j] * 2) <= i) {
+			int counterpart = i - abundants[j];
+			if (find(abundants.rbegin(), abundants.rend(), counterpart) != abundants.rend()) {
+				// Found at least 1 pair
+				isAbundantPair = true;
+				break;
+			}
+			j++;
+		}
+		if(!isAbundantPair)
+			nonAbundantPairSums.push_back(i);
+		hu::printProgress(abundantUpperLimit - i, abundantUpperLimit);
+	}
+
+	// Sum the remaining non-abundant integers.
+	long long sum = 0;
+	for (int i = 0; i < nonAbundantPairSums.size(); i++) {
+		sum += nonAbundantPairSums[i];
+	}
+
+	return sum;
+}
+
+std::vector<int> Problem0023::abundantNumsBelowN(int n)
+{
+	using namespace std;
+	// Save if a number is abundant this way,
+	// so it can be checked if n was already tested for.
+	static vector<bool> abundantMarks = {false};
+
+	// Check and add missing abundant numbers
+	for (int i = abundantMarks.size(); i < n; i++) {
+		auto divisors = hu::divisorsProperOf(i);
+		long long divSum = accumulate(divisors.begin(), divisors.end(), 0);
+		if (divSum > i) {
+			abundantMarks.push_back(true);
+		}
+		else {
+			abundantMarks.push_back(false);
+		}
+		hu::printProgress(i, n);
+	}
+
+	// Pick abundant cases
+	vector<int> abundants = {};
+	for (int i = 0; i < n; i++) {
+		if (abundantMarks[i])
+			abundants.push_back(i);
+	}
+	return abundants;
+}

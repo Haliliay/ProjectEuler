@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <tuple>
 #include <set>
+#include <iterator>
 
 namespace hu {
     long long GetNumOfDigits(long long number);
@@ -57,6 +58,10 @@ namespace hu {
     /// <param name="delim"></param>
     /// <returns></returns>
     std::vector<std::vector<int>> readIntsInto2dArray(const std::string& filename, char delim);
+
+    std::vector<int> readIntsFromFile(const std::string& filename, char delim);
+
+    void writeIntsToFile(const std::vector<int>& list, const std::string& filename, char delim);
 
     bool isLeapYear(long long year);
 
@@ -133,5 +138,25 @@ namespace hu {
         quickSort(list, 0, list.size() - 1, compar);
     }
 
-    std::set<std::vector<long long>> comb(const std::vector<long long>& list, int K);
+    template<typename T>
+    std::set<std::vector<T>> comb(const std::vector<T>& list, int K)
+    {
+        using namespace std;
+        int N = list.size();
+        assert(N >= K);
+        std::set<std::vector<T>> result;
+        string bitmask(K, 1); // K leading 1's
+        bitmask.resize(N, 0); // N-K trailing 0's
+
+        // print integers and permute bitmask
+        do {
+            vector<T> combination = {};
+            for (int i = 0; i < N; ++i) // [0..N-1] integers
+            {
+                if (bitmask[i]) combination.push_back(list[i]);
+            }
+            result.emplace(combination);
+        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
+        return result;
+    }
 }

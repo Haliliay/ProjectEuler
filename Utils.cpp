@@ -179,7 +179,6 @@ namespace hu {
         }
     }
 
-
     std::vector<std::string> split(const std::string& s, char delim) {
         std::vector<std::string> elems;
         split(s, delim, std::back_inserter(elems));
@@ -211,6 +210,32 @@ namespace hu {
         return array;
     }
 
+    std::vector<int> readIntsFromFile(const std::string& filename, char delim)
+    {
+        using namespace std;
+        vector<int> result;
+        string line;
+        ifstream file(filename);
+        while (getline(file, line)) {
+            vector<string> numbers = split(line, delim);
+            for (auto& s : numbers) {
+                result.push_back(stoi(s));
+            }
+        }
+        file.close();
+        return result;
+    }
+
+    void writeIntsToFile(const std::vector<int>& list, const std::string& filename, char delim)
+    {
+        using namespace std;
+        char delimArr[2] = { delim, '\0' };
+        ofstream file(filename);
+        ostream_iterator<int> output_iterator(file, delimArr);
+        copy(begin(list), end(list), output_iterator);
+        file.close();
+    }
+
     bool isLeapYear(long long year)
     {
         bool isBy400 = (year % 400) == 0;
@@ -234,26 +259,5 @@ namespace hu {
             std::cout << "\rProgress: " << a << "/" << n << "  (" << percentage << "%)\t\t";
             std::cout.flush();
         }
-    }
-
-    std::set<std::vector<long long>> comb(const std::vector<long long>& list, int K)
-    {
-        using namespace std;
-        int N = list.size();
-        assert(N >= K);
-        std::set<std::vector<long long>> result;
-        string bitmask(K, 1); // K leading 1's
-        bitmask.resize(N, 0); // N-K trailing 0's
-
-        // print integers and permute bitmask
-        do {
-            vector<long long> combination = {};
-            for (int i = 0; i < N; ++i) // [0..N-1] integers
-            {
-                if (bitmask[i]) combination.push_back(list[i]);
-            }
-            result.emplace(combination);
-        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
-        return result;
     }
 }
