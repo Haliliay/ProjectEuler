@@ -137,8 +137,15 @@ namespace hu {
 
     std::vector<long long> divisorsOf(long long n)
     {
+        auto d = divisorsProperOf(n);
+        d.push_back(n);
+        return d;
+    }
+
+    std::vector<long long> divisorsProperOf(long long n)
+    {
         using namespace std;
-        vector<long long> divisors{1};
+        vector<long long> divisors{ 1 };
         if (n == 1)
             return divisors;
 
@@ -176,7 +183,6 @@ namespace hu {
             i++;
         }
 
-        divisors.push_back(n);
         return divisors;
     }
 
@@ -215,7 +221,7 @@ namespace hu {
         return elems;
     }
 
-    std::vector<std::vector<int>> readIntsInto2dArray(std::string filename)
+    std::vector<std::vector<int>> readIntsInto2dArray(const std::string& filename, char delim)
     {
         using namespace std;
         vector<vector<int>> array{ {} };
@@ -229,7 +235,7 @@ namespace hu {
                 if (i > 0) {
                     array.push_back(vector<int>());
                 }
-                vector<string> numbers = split(line, ' ');
+                vector<string> numbers = split(line, delim);
                 for (auto& s : numbers) {
                     array[i].push_back(stoi(s));
                 }

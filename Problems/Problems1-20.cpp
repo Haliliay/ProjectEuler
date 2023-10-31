@@ -540,7 +540,7 @@ long long Problem0017::operator()() {
 
 
 long long Problem0018::operator()(std::string filename) {
-    auto triangle = hu::readIntsInto2dArray(filename);
+    auto triangle = hu::readIntsInto2dArray(filename, ' ');
 
     // Iterate from bottom up and add the bigger leaf to the parent
     for (int y = triangle.size() - 2; y >= 0; y--) {

@@ -10,10 +10,10 @@ long long Problem0021::operator()(long long n)
 			continue;
 
 		isEvaluated[a] = true;
-		auto divisorsA = hu::divisorsOf(a);
-		auto b = std::accumulate(divisorsA.begin(), --divisorsA.end(), 0);
-		auto divisorsB = hu::divisorsOf(b);
-		auto sumB = std::accumulate(divisorsB.begin(), --divisorsB.end(), 0);
+		auto divisorsA = hu::divisorsProperOf(a);
+		auto b = std::accumulate(divisorsA.begin(), divisorsA.end(), 0);
+		auto divisorsB = hu::divisorsProperOf(b);
+		auto sumB = std::accumulate(divisorsB.begin(), divisorsB.end(), 0);
 
 		if (a == sumB && a != b) {
 			amicableSum += a;

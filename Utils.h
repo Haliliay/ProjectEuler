@@ -20,19 +20,48 @@ namespace hu {
 
     std::vector<long long> genPrimesBelowN(long long n);
 
+    /// <summary>
+    /// Returns all divisors of n, including 1 and n.
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
     std::vector<long long> divisorsOf(long long n);
+
+    /// <summary>
+    /// Returns all proper divisors of n, including 1.
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    std::vector<long long> divisorsProperOf(long long n);
 
     std::vector<std::pair<long long, long long>> primeFactorsOf(long long n);
 
     template <typename Out>
     void split(const std::string& s, char delim, Out result);
 
+    /// <summary>
+    /// Splits s into strings seperated by delim.
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="delim"></param>
+    /// <returns></returns>
     std::vector<std::string> split(const std::string& s, char delim);
 
-    std::vector<std::vector<int>> readIntsInto2dArray(std::string filename);
+    /// <summary>
+    /// Reads ints from a file, seperated by delim, into a 2d array where each line is a row.
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <param name="delim"></param>
+    /// <returns></returns>
+    std::vector<std::vector<int>> readIntsInto2dArray(const std::string& filename, char delim);
 
     bool isLeapYear(long long year);
 
+    /// <summary>
+    /// Char to int. Converts '3' to 3 etc.
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
     int ctoi(const char c);
 
     /// <summary>
