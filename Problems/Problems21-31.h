@@ -2,6 +2,7 @@
 #include <numeric>
 #include <fstream>
 #include "Utils.h"
+#include "ap/ap.hpp"
 
 class Problem0021 {
 public:
@@ -89,4 +90,23 @@ public:
     /// </summary>
     /// <returns></returns>
     std::string operator()();
+};
+
+class Problem0025 {
+public:
+    // 1000-digit Fibonacci Number
+    /*
+    */
+
+    /// <summary>
+    /// Returns the first Fibonacci number with "digits" digits.
+    /// </summary>
+    /// <returns></returns>
+    long long operator()(int digits);
+
+    /// <summary>
+    /// Returns the first 1000-digit Fibonacci number.
+    /// </summary>
+    /// <returns></returns>
+    long long operator()();
 };

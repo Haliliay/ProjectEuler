@@ -172,3 +172,26 @@ std::string Problem0024::operator()() {
 	
 	return hu::listToString(combination);
 }
+
+
+long long Problem0025::operator()(int digits) {
+	using namespace std;
+	digits = clamp(digits, 2, 1000);
+	ap_uint<4000> fib1 = 1;
+	ap_uint<4000> fib2 = 1;
+	ap_uint<4000> temp = 1;
+	long long counter = 2;
+	while (string(fib2).size() < digits) {
+		temp = fib2;
+		fib2 += fib1;
+		fib1 = temp;
+		counter++;
+		hu::printProgress(string(fib2).size(), digits);
+	}
+	return counter;
+}
+
+
+long long Problem0025::operator()() {
+	return operator()(1000);
+}
