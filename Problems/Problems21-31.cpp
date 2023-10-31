@@ -96,8 +96,13 @@ long long Problem0023::operator()() {
 		// Calculate and save to file for later
 		abundants = abundantNumsBelowN(abundantUpperLimit - 12);
 		hu::writeIntsToFile(abundants, abundantsPath, ' ');
+		cout << endl;
 	}
-	cout << endl;
+
+	// Use look-up list to trade minimal space for maximum efficiency
+	vector<bool> isAbundant(abundantUpperLimit);
+	for (int a : abundants)
+		isAbundant[a] = true;
 
 	// Mark all non-abundant pair-sums below abundantUpperLimit
 	vector<int> nonAbundantPairSums = {};
@@ -108,7 +113,7 @@ long long Problem0023::operator()() {
 		// Don't consider impossible pairs
 		while (j < abundants.size() && (abundants[j] * 2) <= i) {
 			int counterpart = i - abundants[j];
-			if (find(abundants.rbegin(), abundants.rend(), counterpart) != abundants.rend()) {
+			if (isAbundant[counterpart]) {
 				// Found at least 1 pair
 				isAbundantPair = true;
 				break;
