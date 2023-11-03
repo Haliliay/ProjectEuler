@@ -191,7 +191,84 @@ long long Problem0025::operator()(int digits) {
 	return counter;
 }
 
-
 long long Problem0025::operator()() {
 	return operator()(1000);
+}
+
+
+std::pair<long long, int> Problem0026::operator()(long long n)
+{
+	using namespace std;
+	// Keep track of longest cycle
+	long long maxCycLen = 0;
+	int fractionIndex = 0;
+	// ap.hpp only has integers so use integer division for fractional part
+	// by setting the numerator to 1e4800
+	ap_uint<16384> numer = 1;
+	for (int j = 0; j < 15 * 32; j++)
+		numer *= (long long)1e10;
+
+	// Loop n fractions
+	for (long long i = 2; i < n; i++) {
+		// Find cycle in decimal fraction part
+		ap_uint<16384> denom = i;
+		ap_uint<16384> frac = numer / denom;
+		string sFrac = (string)frac;
+		string cycle = findNumCycle(sFrac);
+
+		// Compare cycle lengths
+		if (cycle.size() > maxCycLen) {
+			maxCycLen = cycle.size();
+			fractionIndex = i;
+		}
+		hu::printProgress(i, n);
+	}
+	// Return longest cycle
+	return make_pair(maxCycLen, fractionIndex);
+}
+
+std::pair<long long, int> Problem0026::operator()()
+{
+	return operator()(1000);
+}
+
+std::string Problem0026::findNumCycle(const std::string& s) {
+	using namespace std;
+	string cycle = "";
+	// Loop through digits in search of a repetition
+	for (int i = 0; i < 10; i++) {
+		// Find digit
+		char c = i + '0';
+		int count = std::count(s.begin(), s.end(), c);
+
+		// Arbitrary minimum repetition amount to avoid != s.end() checks
+		if (count > 1) {
+			// Examine potential cycle
+			auto iter = std::find(s.begin(), s.end(), c);
+			auto nextIter = find(iter + 1, s.end(), c);
+			int offset = iter - s.begin();
+			int potCycLen = nextIter - iter;
+			string potCyc = s.substr(offset, potCycLen);
+			int successesInARow = -1;
+			int successLimit = 2;
+			// If this isn't a cycle, try to 
+			// extend the cycle up to the next occurance of the digit
+			while (nextIter != s.end() && potCyc != s.substr(offset + potCycLen, potCycLen)) {
+				nextIter = find(nextIter + 1, s.end(), c);
+				potCycLen = nextIter - iter;
+				potCyc = s.substr(offset, potCycLen);
+			}
+			// Only try cycles that can be tested for successLimit amount of times
+			if (potCycLen < (s.size() / successLimit)) {
+				// Count successes in a row
+				while (successesInARow < successLimit && potCyc == s.substr(offset, potCycLen)) {
+					offset += potCycLen;
+					successesInARow++;
+				}
+				if (successesInARow == successLimit && cycle.size() < potCycLen)
+					cycle = potCyc;
+			}
+		}
+	}
+	return cycle;
 }
