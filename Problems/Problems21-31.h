@@ -1,6 +1,7 @@
 #pragma once
 #include <numeric>
 #include <fstream>
+#include <functional>
 #include "Utils.h"
 #include "ap/ap.hpp"
 
@@ -215,4 +216,29 @@ public:
     std::string operator()(int a, int b);
 
     std::string operator()();
+};
+
+class Problem0030 {
+public:
+    /*
+    * Distinct Powers
+    <p>Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
+    \begin{align}
+    1634 &amp;= 1^4 + 6^4 + 3^4 + 4^4\\
+    8208 &amp;= 8^4 + 2^4 + 0^4 + 8^4\\
+    9474 &amp;= 9^4 + 4^4 + 7^4 + 4^4
+    \end{align}
+    </p><p class="smaller">As $1 = 1^4$ is not a sum it is not included.</p>
+    <p>The sum of these numbers is $1634 + 8208 + 9474 = 19316$.</p>
+    <p>Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.</p>
+    */
+
+    /// <summary>
+    /// Returns the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+    /// </summary>
+    /// <returns></returns>
+    std::string operator()();
+
+    std::vector<long> nDigitCombinationPowers(int index);
+    void nDigitCombinationPowers(int index, std::vector<int>& digits, std::vector<long>& powers);
 };

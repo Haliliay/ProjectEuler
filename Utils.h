@@ -34,7 +34,9 @@ namespace hu {
 
     long long GetNthDigit(long long number, long long n);
 
-    bool PalindromeCheck(long long number);
+    bool isPalindrome(long long number);
+
+    bool isAnagram(std::string a, std::string b);
 
     /// <summary>
     /// Returns all divisors of positive integer n, including 1 and n.

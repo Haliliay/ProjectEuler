@@ -390,3 +390,51 @@ std::string Problem0029::operator()()
 {
 	return operator()(100, 100);
 }
+
+
+std::string Problem0030::operator()()
+{
+	using namespace std;
+	long long sum = 0;
+	// Naively test all 6 digit numbers
+	for(int i = 3; i < 9; i++){
+		auto numbers = nDigitCombinationPowers(i);
+		sum = accumulate(numbers.begin(), numbers.end(), sum);
+	}
+	return to_string(sum);
+}
+
+std::vector<long> Problem0030::nDigitCombinationPowers(int index)
+{
+	std::vector<long> powers = {};
+	std::vector<int> digits(index, 0);
+
+	// Starting loop
+	for (digits[index - 1] = 0; digits[index - 1] <= 9; digits[index - 1]++) {
+		// Nested loops
+		nDigitCombinationPowers(index - 2, digits, powers);
+	}
+	return powers;
+}
+
+void Problem0030::nDigitCombinationPowers(int index, std::vector<int>& digits, std::vector<long>& powers)
+{
+	using namespace std;
+	for (digits[index] = digits[index + 1]; digits[index] <= 9; digits[index]++) {
+		if (index == 0) {
+			// Arrived at last nested loop, execute code
+			long number = 0;
+			string sDigits = "";
+			for (int i = 0; i < digits.size(); i++) {
+				number += std::pow(digits[i], 5);
+				sDigits += to_string(digits[i]);
+			}
+			if (hu::isAnagram(to_string(number), sDigits))
+				powers.push_back(number);
+		}
+		else {
+			// Start another nested digit loop
+			nDigitCombinationPowers(index - 1, digits, powers);
+		}
+	}
+}

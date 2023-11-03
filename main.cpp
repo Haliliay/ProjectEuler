@@ -7,6 +7,6 @@
 int main()
 {
     using namespace std;
-    auto answer = Problem0029()();
+    auto answer = Problem0030()();
     std::cout << "\nThe answer is: " << answer << "\n";
 }

@@ -98,7 +98,7 @@ namespace hu {
         return (long long)((number / pow(10, n - 1))) % 10;
     }
 
-    bool PalindromeCheck(long long number) {
+    bool isPalindrome(long long number) {
         /* My cute palindrome check
         long long digits = GetNumOfDigits(number);
         for (long long i = 1; i <= digits / 2; i++) {
@@ -112,6 +112,17 @@ namespace hu {
         std::string rev = num_string;
         std::reverse(rev.begin(), rev.end());
         return (num_string == rev);
+    }
+
+    bool isAnagram(std::string a, std::string b)
+    {
+        using namespace std;
+        if (a.size() == b.size()) {
+            sort(a.begin(), a.end());
+            sort(b.begin(), b.end());
+            return a == b;
+        }
+        return false;
     }
 
     std::vector<long long> divisorsOf(long long n)
