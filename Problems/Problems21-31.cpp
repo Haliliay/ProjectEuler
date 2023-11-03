@@ -341,3 +341,26 @@ std::string Problem0027::operator()()
 {
 	return operator()(1000, 1000);
 }
+
+
+std::string Problem0028::operator()(long long spiralDimension)
+{
+	// Wrong input: Handling
+	spiralDimension = std::max(std::abs(spiralDimension), 1LL);
+
+	long long sum = 1;
+	long long next = 1;
+	for (long long i = 2; i <= spiralDimension; i += 2) {
+		// Use the fact that each spiral adds 4 corners with the same 2n gap between numbers
+		for (int j = 0; j < 4; j++) {
+			next += i;
+			sum += next;
+		}
+	}
+	return std::to_string(sum);
+}
+
+std::string Problem0028::operator()()
+{
+	return operator()(1001);
+}
