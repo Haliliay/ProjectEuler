@@ -8,5 +8,5 @@ int main()
 {
     using namespace std;
     auto answer = Problem0026()();
-    std::cout << "\nThe answer is: " << answer.first << "\nfrac: 1/" << answer.second << "\n";
+    std::cout << "\nThe answer is: " << answer << "\n";
 }

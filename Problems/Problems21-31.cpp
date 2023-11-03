@@ -196,7 +196,7 @@ long long Problem0025::operator()() {
 }
 
 
-std::pair<long long, int> Problem0026::operator()(long long n)
+std::string Problem0026::operator()(long long n)
 {
 	using namespace std;
 	// Keep track of longest cycle
@@ -224,10 +224,10 @@ std::pair<long long, int> Problem0026::operator()(long long n)
 		hu::printProgress(i, n);
 	}
 	// Return longest cycle
-	return make_pair(maxCycLen, fractionIndex);
+	return "Fraction(1/" + to_string(fractionIndex) + ") has a cycle of length " + to_string(maxCycLen) + ".";
 }
 
-std::pair<long long, int> Problem0026::operator()()
+std::string Problem0026::operator()()
 {
 	return operator()(1000);
 }
@@ -235,15 +235,17 @@ std::pair<long long, int> Problem0026::operator()()
 std::string Problem0026::findNumCycle(const std::string& s) {
 	using namespace std;
 	string cycle = "";
+	vector<int> digits(10);
+	iota(digits.begin(), digits.end(), 0);
 	// Loop through digits in search of a repetition
-	for (int i = 0; i < 10; i++) {
+	while (digits.size() > 0) {
 		// Find digit
-		char c = i + '0';
+		char c = digits[0] + '0';
 		int count = std::count(s.begin(), s.end(), c);
 
 		// Arbitrary minimum repetition amount to avoid != s.end() checks
 		if (count > 1) {
-			// Examine potential cycle
+			// Take this occurance to the next as a potential cycle
 			auto iter = std::find(s.begin(), s.end(), c);
 			auto nextIter = find(iter + 1, s.end(), c);
 			int offset = iter - s.begin();
@@ -265,9 +267,28 @@ std::string Problem0026::findNumCycle(const std::string& s) {
 					offset += potCycLen;
 					successesInARow++;
 				}
-				if (successesInARow == successLimit && cycle.size() < potCycLen)
+				// The cycle repeated enough times.
+				// Assume it to be a true cycle and remove the used digits from the pool.
+				if (successesInARow == successLimit && cycle.size() < potCycLen) {
 					cycle = potCyc;
+					auto it = digits.begin();
+					while (it != digits.end()) {
+						c = *it + '0';
+						if (find(cycle.begin(), cycle.end(), c) != cycle.end()) {
+							it = digits.erase(it);
+						}
+						else {
+							it++;
+						}
+					}
+					// We already erased digits so skip to the end
+					continue;
+				}
 			}
+		}
+		if (digits.size() > 0) {
+			// Remove this digit that isn't included in any cycles
+			digits.erase(digits.begin());
 		}
 	}
 	return cycle;

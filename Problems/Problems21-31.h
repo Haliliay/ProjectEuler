@@ -135,13 +135,13 @@ public:
     /// Returns the value of d lessThan n for which 1/d contains the longest recurring cycle in its decimal fraction part.
     /// </summary>
     /// <returns></returns>
-    std::pair<long long, int> operator()(long long  n);
+    std::string operator()(long long  n);
 
     /// <summary>
     /// Returns the value of d lessThan 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
     /// </summary>
     /// <returns></returns>
-    std::pair<long long, int> operator()();
+    std::string operator()();
 
 
     std::string findNumCycle(const std::string& s);

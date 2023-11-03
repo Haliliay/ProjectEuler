@@ -66,6 +66,7 @@ namespace hu {
         // Leave out 1 and n, so the sieve size is n-2
         int sieveSize = n - 2;
 
+        // Calculate more primes
         if (sieve.size() < sieveSize && sieveSize > 0) {
             // Extend sieves
             int offset = sieve.size();
