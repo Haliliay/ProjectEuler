@@ -118,6 +118,14 @@ namespace hu {
         return subsetPrimes;
     }
 
+    bool isPrime(long long p)
+    {
+        if (p < 2)
+            return false;
+        auto primes = genPrimesBelowN(p + 1);
+        return primes.back() == p;
+    }
+
     std::vector<long long> divisorsOf(long long n)
     {
         auto d = divisorsProperOf(n);

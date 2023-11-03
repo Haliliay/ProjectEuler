@@ -293,3 +293,47 @@ std::string Problem0026::findNumCycle(const std::string& s) {
 	}
 	return cycle;
 }
+
+
+std::string Problem0027::operator()(int aMax, int bMax)
+{
+	using namespace std;
+	// Generate primes
+	auto primes = hu::genPrimesBelowN(2e6);
+
+	// Test all a and b combinations
+	aMax = abs(aMax);
+	bMax = abs(bMax);
+	long long maxN = 0;
+	long long ab = 0, resA = 0, resB = 0;
+	
+	// Starting at n == 0 all b < 2 are non-prime, no need to evaluate
+	for (long long b = 2; b < bMax; b++) {
+		// At n == 1 we need a > -b or else the expression is negative, so non-prime
+		for (long long a = -b + 1; a < aMax; a++) {
+			long long n = 0;
+			int sequenceLen = 0;
+			auto quadraticExpression = [&](int n)
+			{
+				return n * n + a * n + b;
+			};
+			while (hu::isPrime(quadraticExpression(n))) {
+				sequenceLen++;
+				n++;
+			}
+			if (n > maxN) {
+				maxN = n;
+				resA = a;
+				resB = b;
+			}
+		}
+		hu::printProgress(b, bMax);
+	}
+
+	return "a: " + to_string(resA) + "\nb: " + to_string(resB) + "\na * b = " + to_string(resA * resB);
+}
+
+std::string Problem0027::operator()()
+{
+	return operator()(1000, 1000);
+}

@@ -25,6 +25,8 @@ namespace hu {
 
     std::vector<long long> genPrimesBelowN(long long n);
 
+    bool isPrime(long long p);
+
     /// <summary>
     /// Returns all divisors of positive integer n, including 1 and n.
     /// </summary>
