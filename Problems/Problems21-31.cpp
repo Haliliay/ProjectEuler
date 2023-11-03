@@ -364,3 +364,29 @@ std::string Problem0028::operator()()
 {
 	return operator()(1001);
 }
+
+
+std::string Problem0029::operator()(int a, int b)
+{
+	using namespace std;
+	// Sorting is mentioned, but no sorting is needed for the solution
+	set<string> powers = {};
+	for (int i = 2; i <= a; i++) {
+		for (int j = 2; j <= b; j++) {
+			// Need at most 201 digits for pow(100, 100)
+			ap_uint<1024> aPowB = i;
+			// Pow function
+			for (int k = 1; k < j; k++) {
+				aPowB *= i;
+			}
+			powers.emplace((string)aPowB);
+		}
+	}
+
+	return to_string(powers.size());
+}
+
+std::string Problem0029::operator()()
+{
+	return operator()(100, 100);
+}
