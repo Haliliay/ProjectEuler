@@ -299,7 +299,7 @@ std::string Problem0027::operator()(int aMax, int bMax)
 {
 	using namespace std;
 	// Generate primes
-	auto primes = hu::genPrimesBelowN(2e6);
+	hu::sievePrimesBelowN(1e6);
 
 	// Test all a and b combinations
 	aMax = abs(aMax);
@@ -317,9 +317,13 @@ std::string Problem0027::operator()(int aMax, int bMax)
 			{
 				return n * n + a * n + b;
 			};
-			while (hu::isPrime(quadraticExpression(n))) {
-				sequenceLen++;
-				n++;
+
+			// Only test if sequence is potentially longer
+			if (hu::isPrime(quadraticExpression(maxN))) {
+				while (hu::isPrime(quadraticExpression(n))) {
+					sequenceLen++;
+					n++;
+				}
 			}
 			if (n > maxN) {
 				maxN = n;

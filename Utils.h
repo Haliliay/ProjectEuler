@@ -15,17 +15,26 @@
 #include "ap/ap.hpp"
 
 namespace hu {
+    inline namespace prime {
+        // Memoize state
+        static std::vector<long long> sieve;
+        static std::vector<bool> marks;
+        static std::vector<long long> primes;
+
+        std::vector<long long> sievePrimesBelowN(long long n);
+
+        std::vector<long long> genNPrimes(long long n);
+
+        std::vector<long long> genPrimesBelowN(long long n);
+
+        bool isPrime(long long p);
+    };
+
     long long GetNumOfDigits(long long number);
 
     long long GetNthDigit(long long number, long long n);
 
     bool PalindromeCheck(long long number);
-
-    std::vector<long long> genNPrimes(long long n);
-
-    std::vector<long long> genPrimesBelowN(long long n);
-
-    bool isPrime(long long p);
 
     /// <summary>
     /// Returns all divisors of positive integer n, including 1 and n.
