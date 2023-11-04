@@ -28,54 +28,93 @@ namespace hu {
         std::vector<long long> genPrimesBelowN(long long n);
 
         bool isPrime(long long p);
+
+        /// <summary>
+        /// Returns all divisors of positive integer n, including 1 and n.
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        std::vector<long long> divisorsOf(long long n);
+
+        /// <summary>
+        /// Returns all proper divisors of positive integer n, including 1.
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        std::vector<long long> divisorsProperOf(long long n);
+
+        std::vector<std::pair<long long, long long>> primeFactorsOf(long long n);
+    };
+
+    inline namespace io {
+        /// <summary>
+        /// Reads ints from a file, seperated by delim, into a 2d array where each line is a row.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="delim"></param>
+        /// <returns></returns>
+        std::vector<std::vector<int>> readIntsInto2dArray(const std::string& filename, char delim);
+
+        std::vector<int> readIntsFromFile(const std::string& filename, char delim);
+
+        void writeIntsToFile(const std::vector<int>& list, const std::string& filename, char delim);
+    };
+
+    inline namespace stri {
+        bool isPalindrome(std::string s);
+        bool isPalindrome(long long number);
+
+        bool isAnagram(std::string a, std::string b);
+
+        template<typename T>
+        std::string listToString(const std::vector<T>& list);
+
+        template <typename Out>
+        void split(const std::string& s, char delim, Out result);
+
+        /// <summary>
+        /// Splits s into strings seperated by delim.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="delim"></param>
+        /// <returns></returns>
+        std::vector<std::string> split(const std::string& s, char delim);
+    };
+
+    inline namespace numerics {
+
+        /// <summary>
+        /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
+        /// Assumes all elements of the list are digits and the initial configuration is the starting order.
+        /// </summary>
+        /// <param name="list">digits to be used in lexicographic order</param>
+        /// <param name="selectedIndex"></param>
+        /// <returns></returns>
+        std::vector<int> permSelect(const std::vector<int>& list, int selectedIndex);
+
+        /// <summary>
+        /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
+        /// Assumes all elements of the list are letters and the initial configuration is the starting order.
+        /// </summary>
+        /// <param name="list">letters to be used in lexicographic order</param>
+        /// <param name="selectedIndex"></param>
+        /// <returns></returns>
+        std::string permSelect(const std::string& list, int selectedIndex);
+
+        /// <summary>
+        /// Returns all combinations of the elements of list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="K">Amount of selected elements in the combination</param>
+        /// <returns></returns>
+        template<typename T>
+        std::set<std::vector<T>> comb(const std::vector<T>& list, int K = INT16_MAX);
     };
 
     long long GetNumOfDigits(long long number);
 
     long long GetNthDigit(long long number, long long n);
-
-    bool isPalindrome(long long number);
-
-    bool isAnagram(std::string a, std::string b);
-
-    /// <summary>
-    /// Returns all divisors of positive integer n, including 1 and n.
-    /// </summary>
-    /// <param name="n"></param>
-    /// <returns></returns>
-    std::vector<long long> divisorsOf(long long n);
-
-    /// <summary>
-    /// Returns all proper divisors of positive integer n, including 1.
-    /// </summary>
-    /// <param name="n"></param>
-    /// <returns></returns>
-    std::vector<long long> divisorsProperOf(long long n);
-
-    std::vector<std::pair<long long, long long>> primeFactorsOf(long long n);
-
-    template <typename Out>
-    void split(const std::string& s, char delim, Out result);
-
-    /// <summary>
-    /// Splits s into strings seperated by delim.
-    /// </summary>
-    /// <param name="s"></param>
-    /// <param name="delim"></param>
-    /// <returns></returns>
-    std::vector<std::string> split(const std::string& s, char delim);
-
-    /// <summary>
-    /// Reads ints from a file, seperated by delim, into a 2d array where each line is a row.
-    /// </summary>
-    /// <param name="filename"></param>
-    /// <param name="delim"></param>
-    /// <returns></returns>
-    std::vector<std::vector<int>> readIntsInto2dArray(const std::string& filename, char delim);
-
-    std::vector<int> readIntsFromFile(const std::string& filename, char delim);
-
-    void writeIntsToFile(const std::vector<int>& list, const std::string& filename, char delim);
 
     bool isLeapYear(long long year);
 
@@ -150,63 +189,5 @@ namespace hu {
     void quickSort(std::vector<T>& list, std::function<int(const T&, const T&)> compar)
     {
         quickSort(list, 0, list.size() - 1, compar);
-    }
-
-    template<typename T>
-    std::string listToString(const std::vector<T>& list)
-    {
-        using namespace std;
-        string result = "";
-        for (auto& i : list) {
-            result += to_string(i);
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
-    /// Assumes all elements of the list are digits and the initial configuration is the starting order.
-    /// </summary>
-    /// <param name="list">digits to be used in lexicographic order</param>
-    /// <param name="selectedIndex"></param>
-    /// <returns></returns>
-    std::vector<int> permSelect(const std::vector<int>& list, int selectedIndex);
-
-    /// <summary>
-    /// Returns the selectedIndex'th permutation of the given list in lexicographic order.
-    /// Assumes all elements of the list are letters and the initial configuration is the starting order.
-    /// </summary>
-    /// <param name="list">letters to be used in lexicographic order</param>
-    /// <param name="selectedIndex"></param>
-    /// <returns></returns>
-    std::string permSelect(const std::string& list, int selectedIndex);
-
-    /// <summary>
-    /// Returns all combinations of the elements of list.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="list"></param>
-    /// <param name="K">Amount of selected elements in the combination</param>
-    /// <returns></returns>
-    template<typename T>
-    std::set<std::vector<T>> comb(const std::vector<T>& list, int K = INT16_MAX)
-    {
-        using namespace std;
-        int N = list.size();
-        K = clamp(K, 1, N);
-        std::set<std::vector<T>> result;
-        string bitmask(K, 1); // K leading 1's
-        bitmask.resize(N, 0); // N-K trailing 0's
-
-        // Add combination and permute bitmask
-        do {
-            vector<T> combination = {};
-            for (int i = 0; i < N; ++i) // [0..N-1] integers
-            {
-                if (bitmask[i]) combination.push_back(list[i]);
-            }
-            result.emplace(combination);
-        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
-        return result;
     }
 }
