@@ -418,7 +418,7 @@ long long Problem0020::operator()(int factorial)
     std::string facString = std::string(fac);
     long long facSum = 0;
     for (int i = 0; i < facString.size(); i++) {
-        facSum += hu::ctoi(facString[i]);
+        facSum += hu::cdtoid(facString[i]);
     }
     return facSum;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iterator>
 #include "Problems11-20.h"   // Problem67 uses Problem18
 #include "Utils.h"
 #include "ap/ap.hpp"
@@ -28,6 +29,19 @@ public:
     /// <param name="digits"></param>
     /// <returns></returns>
     std::vector<std::string> genFigurates(int id, int digits);
+
+    /// <summary>
+    /// For each ordered set, adds all possible cyclic continuations from the figurates, into a new list of ordered sets.
+    /// Ignores sets that already have an element from the fID-figurates.
+    /// Appends the fID to the IDs of the set (first part of pair).
+    /// </summary>
+    /// <param name="orderedSets"></param>
+    /// <param name="figurates"></param>
+    /// <returns></returns>
+    std::vector<std::pair<std::string, std::vector<std::string>>> genSetsFromNextCyclic(
+        const std::vector<std::pair<std::string, std::vector<std::string>>>& orderedSets, 
+        const std::vector<std::string>& figurates,
+        char fID);
 };
 
 class Problem0067  {

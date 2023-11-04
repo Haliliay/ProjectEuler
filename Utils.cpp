@@ -252,6 +252,20 @@ namespace hu {
             split(s, delim, std::back_inserter(elems));
             return elems;
         }
+
+        bool isLast2eqFirst2(const std::string& s1, const std::string& s2, int len)
+        {
+            using namespace std;
+            assert(s1.size() >= len && s2.size() >= len);
+
+            // Length of elements, e.g. 4-digit numbers
+            int elemLen = s1.size();
+
+            string firstEnd = s1.substr(elemLen - len, len);
+            string secondBeg = s2.substr(0, len);
+
+            return firstEnd == secondBeg;
+        }
     }
 
     namespace numerics {
@@ -271,7 +285,7 @@ namespace hu {
 
             for (int i = 0; i < N; ++i)
             {
-                result.push_back(ctoi(permutation[i]));
+                result.push_back(cdtoid(permutation[i]));
             }
             return result;
         }
@@ -339,10 +353,16 @@ namespace hu {
         return isBy4 && (isBy400 || !isBy100);
     }
 
-    int ctoi(const char c)
+    int cdtoid(const char c)
     {
         assert(c >= '0' && c <= '9');
         return c - '0';
+    }
+
+    char idtocd(const int i)
+    {
+        assert(i >= 0 && i <= 9);
+        return '0' + i;
     }
 
     void printProgress(long long a, long long n)

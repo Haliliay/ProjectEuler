@@ -79,6 +79,14 @@ namespace hu {
         /// <param name="delim"></param>
         /// <returns></returns>
         std::vector<std::string> split(const std::string& s, char delim);
+
+        /// <summary>
+        /// Checks if the last 'len' chars of s1 are equal to the first 'len' chars of s2.
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        bool isLast2eqFirst2(const std::string& s1, const std::string& s2, int len);
     };
 
     inline namespace numerics {
@@ -119,11 +127,19 @@ namespace hu {
     bool isLeapYear(long long year);
 
     /// <summary>
-    /// Char to int. Converts '3' to 3 etc.
+    /// Converts a digit represented as a char to int, e.g. '3' to 3.
     /// </summary>
     /// <param name="c"></param>
     /// <returns></returns>
-    int ctoi(const char c);
+    int cdtoid(const char c);
+
+
+    /// <summary>
+    /// Converts a digit represented as an int to a char, e.g. 5 to '5'.
+    /// </summary>
+    /// <param name="i"></param>
+    /// <returns></returns>
+    char idtocd(const int i);
 
     /// <summary>
     /// Print the percentage of a of n, if it has a difference of at least 1% compared to the last printed percentage.
