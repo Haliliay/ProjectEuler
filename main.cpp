@@ -1,6 +1,8 @@
 #include <iostream>
-#include "Problems/Problems1-20.h"
-#include "Problems/Problems21-31.h"
+#include "Problems/Problems1-10.h"
+#include "Problems/Problems11-20.h"
+#include "Problems/Problems21-30.h"
+#include "Problems/Problems31-40.h"
 #include "Problems/Problems61-70.h"
 
 

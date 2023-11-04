@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Problems1-20.h"
+#include "Problems11-20.h"   // Problem67 uses Problem18
+#include "Utils.h"
+#include "ap/ap.hpp"
+
 
 class Problem0067  {
 public:
