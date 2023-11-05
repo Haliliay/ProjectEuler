@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 #include "Problems11-20.h"   // Problem67 uses Problem18
 #include "Utils.h"
 #include "ap/ap.hpp"
@@ -42,6 +43,27 @@ public:
         const std::vector<std::pair<std::string, std::vector<std::string>>>& orderedSets, 
         const std::vector<std::string>& figurates,
         char fID);
+};
+
+class Problem0062 {
+    /*
+    * Cubic Permutations
+    * https://projecteuler.net/problem=62
+    */
+
+public:
+    /// <summary>
+    /// Returns the smallest cube for which exactly n permutations of its digits are cube.
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    std::string operator()(int n);
+
+    /// <summary>
+    /// Returns the smallest cube for which exactly five permutations of its digits are cube.
+    /// </summary>
+    /// <returns></returns>
+    std::string operator()();
 };
 
 class Problem0067  {

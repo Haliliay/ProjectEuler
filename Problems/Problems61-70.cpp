@@ -135,6 +135,70 @@ std::vector<std::pair<std::string, std::vector<std::string>>> Problem0061::genSe
 }
 
 
+std::string Problem0062::operator()(int n)
+{
+	using namespace std;
+	// Map ordered digits of cube numbers to their cube number
+	map<string, vector<string>> cubeMap = {};
+	string smallestCube = "";
+
+	// Generate cubes
+	long long i = 1;
+	string lastID = "1";
+	while (true) {
+		long long cube = pow(i, 3);
+		string cubeS = to_string(cube);
+
+		// When a new key with more digits than before is generated
+		// it is guaranteed that all possible permutations of the
+		// cubes with less digits, that are themselves cubes,
+		// have already been found.
+		// So check if there is a cube where the amount of permutations is equal to n.
+		if (cubeS.size() > lastID.size()) {
+			// Look for list with fitting permutations
+			vector<vector<string>> cubePerms;
+			for (auto& cubePerm : cubeMap) {
+				if (cubePerm.second.size() == n) {
+					cubePerms.push_back(cubePerm.second);
+				}
+			}
+
+			// Solutions found
+			if (cubePerms.size() > 0) {
+				// Find smallest cube
+				smallestCube = cubePerms[0][0];
+				for (int i = 0; i < cubePerms.size(); i++) {
+					string smallestCubeCur = *min_element(cubePerms[i].begin(), cubePerms[i].end());
+					smallestCube = min(smallestCube, smallestCubeCur);
+				}
+
+				break;
+			}
+
+			// Clear map, because all next cubes will have more digits
+			// so the previous cubes won't get more permutations.
+			// This avoids searching the same cubes again.
+			cubeMap.clear();
+		}
+		// Put the cube in a map according to its ordered digits
+		string cubeID = cubeS;
+		sort(cubeID.begin(), cubeID.end());
+		cubeMap[cubeID].push_back(cubeS);
+		lastID = cubeID;
+		i++;
+		// Status update
+		cout << "\ri: " << i;
+		cout.flush();
+	}
+	return smallestCube;
+}
+
+std::string Problem0062::operator()()
+{
+	return operator()(5);
+}
+
+
 long long Problem0067::operator()(std::string filename) const
 {
 	return Problem0018()(filename);
