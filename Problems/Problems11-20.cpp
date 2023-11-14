@@ -292,7 +292,7 @@ long long Problem0017::lettersInNumber(long long n) {
 
                 // add third digit
                 if (tempN >= 100) {
-                    letterCount += digits[hu::GetNthDigit(tempN, 3)].size() + specialNames[0].size();
+                    letterCount += digits[hu::getNthDigit(tempN, 3)].size() + specialNames[0].size();
                     tempN %= 100;
 
                     // add conjunction "and" only if the lower part of the number is non zero
@@ -303,7 +303,7 @@ long long Problem0017::lettersInNumber(long long n) {
 
                 // add last two digits
                 if (tempN >= 20) {
-                    letterCount += tens[hu::GetNthDigit(tempN, 2)].size();
+                    letterCount += tens[hu::getNthDigit(tempN, 2)].size();
                     tempN %= 10;
                     if (tempN > 0)
                         letterCount += digits[tempN].size();

@@ -336,12 +336,12 @@ namespace hu {
     }
 
 
-    long long GetNumOfDigits(long long number) {
+    long long getNumOfDigits(long long number) {
         std::string num_string = std::to_string(number);
         return num_string.size();
     }
 
-    long long GetNthDigit(long long number, long long n) {
+    long long getNthDigit(long long number, long long n) {
         return (long long)((number / pow(10, n - 1))) % 10;
     }
 
@@ -374,5 +374,151 @@ namespace hu {
             std::cout << "\rProgress: " << a << "/" << n << "  (" << percentage << "%)\t\t";
             std::cout.flush();
         }
+    }
+
+    std::string sqrtContinuedFractionExpansion(int n, int depth)
+    {
+        using namespace std;
+
+        // When a duplicate number is found, we have found the period.
+        vector<long double> lds{};
+        auto searchSameLD = [&lds](long double ld) -> int {
+            for (int i = 0; i < lds.size(); i++) {
+                if (isAlmostEqual(ld, lds[i]))
+                    return i;
+            }
+            lds.push_back(ld);
+            return -1;
+        };
+
+        // First iteration
+        vector<long double> reciprocals{ sqrtl(n) };
+        vector<short> aCoefs { (short)floor(reciprocals.back()) };
+        long double remainder = reciprocals.back() - aCoefs.back();
+        int periodIndex = searchSameLD(reciprocals.back());
+
+        for (int i = 1; i < depth; i++) {
+            remainder = reciprocals.back() - aCoefs.back();
+            if (isAlmostEqual(remainder, 0)) {
+                break;
+            }
+            reciprocals.push_back(1.0 / remainder);
+            aCoefs.push_back((short)floor(reciprocals.back()));
+            periodIndex = searchSameLD(reciprocals.back());
+
+            if (periodIndex != -1) {
+                reciprocals.pop_back();
+                aCoefs.pop_back();
+                break;
+            }
+        }
+
+        // Build output string
+        string conFracS = "";
+        for (int i = 0; i < aCoefs.size(); i++) {
+            if (i == periodIndex)
+                conFracS += "P ";
+
+            conFracS += to_string(aCoefs[i]);
+
+            if (i < (aCoefs.size() - 1))
+                conFracS += " ";
+        }
+
+        return conFracS;
+    }
+
+    std::string sqrtContinuedFractionExpansionFormatted(int n, int depth)
+    {
+        using namespace std;
+
+        auto conFrac = hu::split(sqrtContinuedFractionExpansion(n, depth), ' ');
+
+        // Beginning and catch for square numbers
+        string conFracFormatted = "[" + conFrac[0];
+        if (conFrac.size() == 1) {
+            conFracFormatted += "]";
+            return conFracFormatted;
+        }
+        else {
+            conFracFormatted += "; ";
+        }
+
+        // Formatted rest
+        bool hasPeriod = false;
+        for (int i = 1; i < conFrac.size(); i++) {
+            if (conFrac[i] == "P") {
+                conFracFormatted += "(";
+                hasPeriod = true;
+            }
+            else {
+                conFracFormatted += conFrac[i];
+
+                if (i < (conFrac.size() - 1))
+                    conFracFormatted += ", ";
+                else
+                {
+                    if (hasPeriod)
+                        conFracFormatted += ")]";
+                    else
+                        conFracFormatted += "]";
+                }
+            }
+        }
+
+        return conFracFormatted;
+    }
+
+    short sqrtContinuedFractionExpansionPeriod(int n, int depth)
+    {
+        using namespace std;
+        auto conFrac = hu::split(sqrtContinuedFractionExpansion(n, depth), ' ');
+        for (int i = conFrac.size() - 1; i > 0; i--) {
+            if (conFrac[i] == "P") {
+                return conFrac.size() - (i+1);
+            }
+        }
+        return 0;
+    }
+
+
+    int sqrtFloor(int n)
+    {
+        using namespace std;
+
+        if (n < 0)
+            return -1;
+        
+        static vector<long long> squareNumbers(10, 0);
+        if (squareNumbers[1] == 0)
+        {
+            for (int i = 0; i < squareNumbers.size(); i++) {
+                squareNumbers[i] = (long long)i * i;
+            }
+        }
+
+        // Linear expansion and search
+        int index = 0;
+        while (true) {
+            // Expand square number list if necessary
+            int size = squareNumbers.size();
+            while (size <= index) {
+                squareNumbers.push_back(size * size);
+                ++size;
+            }
+
+            // Check for biggest lower square
+            if (squareNumbers[index] > n)
+                return index - 1;
+
+            ++index;
+        }
+
+        return -1;
+    }
+
+    bool isAlmostEqual(long double ld, long double val, long double epsilon)
+    {
+        return std::abs(ld - val) <= 1e-6;
     }
 }

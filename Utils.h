@@ -120,9 +120,9 @@ namespace hu {
         std::set<std::vector<T>> comb(const std::vector<T>& list, int K = INT16_MAX);
     };
 
-    long long GetNumOfDigits(long long number);
+    long long getNumOfDigits(long long number);
 
-    long long GetNthDigit(long long number, long long n);
+    long long getNthDigit(long long number, long long n);
 
     bool isLeapYear(long long year);
 
@@ -206,4 +206,33 @@ namespace hu {
     {
         quickSort(list, 0, list.size() - 1, compar);
     }
+
+    /// <summary>
+    /// Returns the continued fraction representation of the square root of n.
+    /// i.e. sqrt(2) is "1;2,2,2,2,2,2,2...".
+    /// </summary>
+    /// <param name="n"></param>
+    /// <param name="depth">The maximum depth of the inner-most reciprocal that will be calculated for possibly infinite fractions.</param>
+    /// <returns></returns>
+    std::string sqrtContinuedFractionExpansion(int n, int depth = 100);
+
+    std::string sqrtContinuedFractionExpansionFormatted(int n, int depth = 100);
+
+    short sqrtContinuedFractionExpansionPeriod(int n, int depth = 100);
+
+    /// <summary>
+    /// Returns the floor of the square root of n. Assumes positive n.
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    int sqrtFloor(int n);
+
+    /// <summary>
+    /// Returns true if ld is at most epsilon away from val.
+    /// </summary>
+    /// <param name="ld"></param>
+    /// <param name="val"></param>
+    /// <param name="epsilon"></param>
+    /// <returns></returns>
+    bool isAlmostEqual(long double ld, long double val, long double epsilon = 1e-6);
 }
