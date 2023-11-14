@@ -66,6 +66,27 @@ public:
     std::string operator()();
 };
 
+class Problem0064 {
+    /*
+    * Odd Period Square Roots
+    * https://projecteuler.net/problem=64
+    */
+
+public:
+    /// <summary>
+    /// Returns the amount of continued fractions less than 'n' that have an odd period.
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    std::string operator()(int n);
+
+    /// <summary>
+    /// Returns the amount of continued fractions for N lt 10'000 that have an odd period.
+    /// </summary>
+    /// <returns></returns>
+    std::string operator()();
+};
+
 class Problem0067  {
     /*
     * Maximum Path Sum II

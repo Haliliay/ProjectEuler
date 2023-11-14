@@ -199,7 +199,32 @@ std::string Problem0062::operator()()
 }
 
 
+std::string Problem0064::operator()(int n)
+{
+	using namespace std;
+	/*
+	string result = hu::sqrtContinuedFractionExpansionFormatted(n);
+	result += " " + to_string(hu::sqrtContinuedFractionExpansionPeriod(n));
+	*/
+	int odds = 0;
+	for (int i = 0; i <= n; i++) {
+		if (hu::sqrtContinuedFractionExpansionPeriod(i) % 2 == 1)
+			odds++;
+		hu::printProgress(i, n);
+	}
+	string result = to_string(odds);
+
+	return result;
+}
+
+std::string Problem0064::operator()()
+{
+	return operator()(10'000);
+}
+
+
 long long Problem0067::operator()(std::string filename) const
 {
 	return Problem0018()(filename);
 }
+
