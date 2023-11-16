@@ -194,6 +194,7 @@ public:
     */
 
     long long operator()(std::string filename);
+    long long operator()();
 };
 
 class Problem0019 {
