@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 #include <iostream>
-#include "Utils.h"
+import Utils;
 #include "ap/ap.hpp"
 
 class Problem0001  {

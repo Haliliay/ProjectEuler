@@ -350,6 +350,10 @@ long long Problem0018::operator()(std::string filename) {
     return triangle[0][0];
 }
 
+long long Problem0018::operator()() {
+    return operator()("data/p0018.txt");
+}
+
 
 int Problem0019::addMonth(int month, int year)
 {

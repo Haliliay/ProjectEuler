@@ -2,8 +2,9 @@
 #include <numeric>
 #include <fstream>
 #include <functional>
-#include "Utils.h"
+import Utils;
 #include "ap/ap.hpp"
+import <algorithm>;
 
 class Problem0021 {
 public:

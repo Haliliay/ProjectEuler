@@ -41,11 +41,11 @@
     <ClCompile Include="Problems\Problems11-20.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.ixx">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Problems\Problems1-10.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

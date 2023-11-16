@@ -1,7 +1,14 @@
-#include "Utils.h"
+module;
+
+module Utils;
 
 namespace hu {
     namespace prime {
+        // Memoize state
+        static std::vector<long long> sieve;
+        static std::vector<bool> marks;
+        static std::vector<long long> primes;
+
         std::vector<long long> sievePrimesBelowN(long long n)
         {
             using namespace std;
@@ -149,9 +156,8 @@ namespace hu {
             using namespace std;
             vector<vector<int>> array{ {} };
             // Read the 50 digit numbers as strings
-            ifstream file;
+            ifstream file(filename);
             string line;
-            file.open(filename);
             if (file.is_open()) {
                 int i = 0;
                 while (getline(file, line)) {

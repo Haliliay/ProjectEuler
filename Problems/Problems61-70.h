@@ -4,8 +4,8 @@
 #include <iterator>
 #include <algorithm>
 #include "Problems11-20.h"   // Problem67 uses Problem18
-#include "Utils.h"
 #include "ap/ap.hpp"
+import Utils;
 
 class Problem0061 {
     /*

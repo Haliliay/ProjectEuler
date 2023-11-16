@@ -3,7 +3,7 @@
 #include <cassert>
 #include <fstream>
 #include <map>
-#include "Utils.h"
+import Utils;
 #include "ap/ap.hpp"
 
 class Problem0011 {
@@ -194,6 +194,7 @@ public:
     */
 
     long long operator()(std::string filename);
+    long long operator()();
 };
 
 class Problem0019 {

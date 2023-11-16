@@ -5,7 +5,6 @@
 #include "Problems/Problems31-40.h"
 #include "Problems/Problems61-70.h"
 
-
 int main()
 {
     using namespace std;
